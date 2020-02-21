@@ -1,5 +1,4 @@
 var Emitter = require('./emiter');
-
 var emtr = new Emitter();
 
 emtr.on('greet', () => {
