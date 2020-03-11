@@ -8,7 +8,7 @@ const url = 'https://api.darksky.net/forecast/73fe49bbcad99d3bdda1053ee5bff4be/1
 
 request({
         url,
-        // Hace el JASON.parse() desde aquí.
+        // Hace el JSON.parse() desde aquí.
         json: true
     },
     (error, response) => {
@@ -21,7 +21,7 @@ request({
 // Necesita dos parámetros, los cuales son: 
 request({
     // Primer parámetro: objeto de configuración.
-    // Si las keys tienen el nombre igua, entonces dejamos sólo uno.
+    // Si las keys tienen el nombre igual, entonces dejamos sólo uno.
     url
 },
 //Segundo parámetro: Callback.
