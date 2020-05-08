@@ -1,0 +1,24 @@
+{
+    "name": "Jueves_07_05_2020",
+    "version": "1.0.0",
+    "description": "",
+    "main": "App.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "ejs": "^3.1.2",
+        "express": "^4.17.1",
+        "nodemon": "^2.0.3"
+    },
+    "name": "nodemon",
+    "homepage": "http://nodemon.io",
+    "...": "... other standard package.json values",
+    "nodemonConfig": {
+        "ignore": ["test/*", "docs/*"],
+        "delay": "2500"
+    }
+}
