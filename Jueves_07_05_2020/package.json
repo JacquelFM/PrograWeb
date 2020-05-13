@@ -1,5 +1,5 @@
 {
-    "name": "Jueves_07_05_2020",
+    "name": "nodemon",
     "version": "1.0.0",
     "description": "",
     "main": "App.js",
@@ -10,15 +10,18 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "body-parser": "^1.19.0",
         "ejs": "^3.1.2",
         "express": "^4.17.1",
         "nodemon": "^2.0.3"
     },
-    "name": "nodemon",
     "homepage": "http://nodemon.io",
     "...": "... other standard package.json values",
     "nodemonConfig": {
-        "ignore": ["test/*", "docs/*"],
+        "ignore": [
+            "test/*",
+            "docs/*"
+        ],
         "delay": "2500"
     }
 }
