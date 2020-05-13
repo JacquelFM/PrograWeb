@@ -1,6 +1,7 @@
 //Inyección de dependencias.
 const express = require('express');
 const bodyParser = require('body-parser');
+
 const app = express();
 const port = 3000;
 
@@ -30,7 +31,7 @@ app.post('/person', urlencodedParser, (req, res) => {
 });
 
 app.post('/personJson', jsonParser, (req, res) => {
-    res.send('Thanks from jsonParser');
+    res.send('Thanks from jsonParser.');
     console.log(req.body.firstname);
     console.log(req.body.lastname);
 });
