@@ -25,9 +25,11 @@ app.get('/person/:id', (req, res) => {
 });
 
 app.post('/person', urlencodedParser, (req, res) => {
-    res.send('Thanks');
-    console.log(req.body.firstname);
-    console.log(req.body.lastname);
+    //res.send('Thanks');
+    console.log(req.body.userName);
+
+    //console.log(req.body.firstname);
+    //console.log(req.body.lastname);
 });
 
 app.post('/personJson', jsonParser, (req, res) => {
