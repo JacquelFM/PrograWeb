@@ -99,6 +99,18 @@ app.post('/personJson', jsonParser, (req, res) => {
 });
 // Search -> Fin
 
+// Remove -> Inicio
+app.get('/remove', (req, res) => {
+    let id = "5ed6ddcce0362ad8e93afe6a";
+    let user = mongoose.model('User', userSchema);
+
+    user.findByIdAndRemove(id, (err, user) => {
+        res.json({ success: true, message: "User deleted.", user })
+    })
+
+});
+// Remove -> Fin
+
 app.listen(port, () => {
     console.log(`Escuchando en el puerto ${port}`)
 });
