@@ -54,7 +54,6 @@ app.post('/insertUser', urlencodedParser, (req, res) => {
             console.log('Todo en orden, crack.');
         }
     });
-
 });
 
 app.post('/insertJson', jsonParser, (req, res) => {
@@ -88,7 +87,6 @@ app.post('/personJson', jsonParser, (req, res) => {
 });
 
 // Search -> Fin
-
 
 app.listen(port, () => {
     console.log(`Escuchando en el puerto ${port}`)
