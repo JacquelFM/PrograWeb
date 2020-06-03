@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <title>Menú de opciones</title>
+    <link href="/assets/style.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Menú de opciones</h1>
+    <a href="/insert">Insertar</a><br>
+    <a href="/search">Search</a><br><br>
+
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Id</th>
+            <th>Delete</th>
+            <th>Edit</th>
+        </tr>
+
+        <% users.forEach(function(o){ %>
+
+            <tr>
+                <td>
+                    <%= o.userName %>
+                </td>
+                <td>
+                    <%= o.password %>
+                </td>
+                <td>
+                    <%= o._id %>
+                </td>
+                <td><button type="submit">Borrar</button></td>
+                <td><button type="submit">Editar</button></td>
+            </tr>
+
+            <% }); %>
+
+    </table>
+
+</body>
+
+</html>

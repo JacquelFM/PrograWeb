@@ -38,6 +38,19 @@ app.get('/person/:id', (req, res) => {
     });
 });
 
+// UsersList -> Inicio
+app.get('/usersList', (req, res) => {
+    let user = mongoose.model('User', userSchema);
+
+    user.find({}, function(err, users) {
+        if (err) {
+            res.send("Oh, oh. Algo salió mal, crack.");
+        }
+        res.render('home', { users });
+    });
+});
+// UsersList -> Fin
+
 // Insert -> Inicio
 app.post('/insertUser', urlencodedParser, (req, res) => {
     var user = mongoose.model('User', userSchema);
@@ -61,7 +74,6 @@ app.post('/insertJson', jsonParser, (req, res) => {
     console.log(req.body.userName);
     console.log(req.body.password);
 });
-
 // Insert -> Fin
 
 // Search -> Inicio
@@ -85,7 +97,6 @@ app.post('/personJson', jsonParser, (req, res) => {
     console.log(req.body.userName);
     console.log(req.body.lastname);
 });
-
 // Search -> Fin
 
 app.listen(port, () => {
