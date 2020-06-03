@@ -38,6 +38,34 @@ app.get('/person/:id', (req, res) => {
     });
 });
 
+// Insert -> Inicio
+app.post('/insertUser', urlencodedParser, (req, res) => {
+    var user = mongoose.model('User', userSchema);
+
+    var myUser = user({
+        userName: req.body.userName,
+        password: req.body.password
+    });
+
+    myUser.save((err) => {
+        if (err) {
+            console.log('Oh, oh. Salió algo mal: ' + err);
+        } else {
+            console.log('Todo en orden, crack.');
+        }
+    });
+
+});
+
+app.post('/insertJson', jsonParser, (req, res) => {
+    res.send('Thanks from jsonParser.');
+    console.log(req.body.userName);
+    console.log(req.body.password);
+});
+
+// Insert -> Fin
+
+// Search -> Inicio
 app.post('/person', urlencodedParser, (req, res) => {
     var user = mongoose.model('User', userSchema);
 
@@ -58,6 +86,9 @@ app.post('/personJson', jsonParser, (req, res) => {
     console.log(req.body.userName);
     console.log(req.body.lastname);
 });
+
+// Search -> Fin
+
 
 app.listen(port, () => {
     console.log(`Escuchando en el puerto ${port}`)
