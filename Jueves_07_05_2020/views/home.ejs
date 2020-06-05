@@ -31,8 +31,16 @@
                 <td>
                     <%= o._id %>
                 </td>
-                <td><button type="submit">Borrar</button></td>
-                <td><button type="submit">Editar</button></td>
+                <td>
+                    <form method="POST" action="/remove/<%= o._id %>">
+                        <button type="submit">Borrar</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="/update/<%= o._id %>">
+                        <button type="submit">Editar</button>
+                    </form>
+                </td>
             </tr>
 
             <% }); %>

@@ -19,23 +19,12 @@ var userSchema = new Schema({
 app.use('/assets', express.static(__dirname + '/public')); //Aquí estarán nuestros contenidos estáticos.
 app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
-    res.render('index');
-});
-
 app.get('/insert', (req, res) => {
     res.render('insert');
 });
 
 app.get('/search', (req, res) => {
     res.render('personData');
-});
-
-app.get('/person/:id', (req, res) => {
-    res.render('person', {
-        ID: req.params.id,
-        Qstr: req.query.Qstr
-    });
 });
 
 // UsersList -> Inicio
@@ -53,63 +42,70 @@ app.get('/usersList', (req, res) => {
 
 // Insert -> Inicio
 app.post('/insertUser', urlencodedParser, (req, res) => {
-    var user = mongoose.model('User', userSchema);
+    let user = mongoose.model('User', userSchema);
 
-    var myUser = user({
+    let myUser = user({
         userName: req.body.userName,
         password: req.body.password
     });
 
     myUser.save((err) => {
-        if (err) {
-            console.log('Oh, oh. Salió algo mal: ' + err);
-        } else {
-            console.log('Todo en orden, crack.');
-        }
+        if (err) res.send("Oh, oh. Algo salió mal, crack.");
+        else res.redirect('/usersList');
     });
-});
-
-app.post('/insertJson', jsonParser, (req, res) => {
-    res.send('Thanks from jsonParser.');
-    console.log(req.body.userName);
-    console.log(req.body.password);
 });
 // Insert -> Fin
 
 // Search -> Inicio
 app.post('/person', urlencodedParser, (req, res) => {
-    var user = mongoose.model('User', userSchema);
+    let user = mongoose.model('User', userSchema);
 
     user.find({ userName: req.body.userName }, function(err, data) {
         if (err) console.log('Hubo un error');
         else {
-            if (data.length > 0) {
-                res.render('results', { data });
-            } else {
-                res.send('No hay coincidencias para el criterio de búsqueda');
-            }
+            if (data.length > 0) res.render('results', { data });
+            else res.send('No hay coincidencias para el criterio de búsqueda');
         }
     });
-});
-
-app.post('/personJson', jsonParser, (req, res) => {
-    res.send('Thanks from jsonParser.');
-    console.log(req.body.userName);
-    console.log(req.body.lastname);
 });
 // Search -> Fin
 
 // Remove -> Inicio
-app.get('/remove', (req, res) => {
-    let id = "5ed6ddcce0362ad8e93afe6a";
+app.post('/remove/:id', (req, res) => {
     let user = mongoose.model('User', userSchema);
 
-    user.findByIdAndRemove(id, (err, user) => {
-        res.json({ success: true, message: "User deleted.", user })
+    user.findByIdAndRemove(req.params.id, (err) => {
+        if (err) res.send("Oh, oh. Algo salió mal, crack.");
+        else res.redirect('/usersList');
     });
-
 });
 // Remove -> Fin
+
+// Update -> Inicio
+app.post('/update/:id', (req, res) => {
+    let user = mongoose.model('User', userSchema);
+
+    user.find({ _id: req.params.id }, function(err, data) {
+        if (err) console.log('Oh, oh. Hubo un error, crack.');
+        else {
+            if (data.length > 0) res.render('update', { data });
+            else res.send('No hay coincidencias para el criterio de búsqueda.');
+        }
+    });
+});
+
+app.post('/updateOne/:id', urlencodedParser, (req, res) => {
+    let user = mongoose.model('User', userSchema);
+
+    user.findOneAndUpdate({ _id: req.params.id }, {
+        userName: req.body.userName,
+        password: req.body.password
+    }, (err) => {
+        if (err) res.send("Oh, oh. Algo salió mal, crack.");
+        else res.redirect('/usersList');
+    });
+});
+// Update -> Fin
 
 app.listen(port, () => {
     console.log(`Escuchando en el puerto ${port}`)

@@ -13,20 +13,7 @@
         <input type="submit" value="Enviar">
     </form>
 
-    <a href="/">Regresar</a>
-
-    <script>
-        $.ajax({
-            type: "POST",
-            url: "/personjson",
-            data: JSON.stringify({
-                userName: "Jacqueline",
-                lastname: "desde AJAX personData"
-            }),
-            dataType: "json",
-            contentType: "application/json"
-        });
-    </script>
+    <a href="/usersList">Regresar</a>
 
 </body>
 
