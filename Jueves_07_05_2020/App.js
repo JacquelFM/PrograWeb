@@ -106,7 +106,7 @@ app.get('/remove', (req, res) => {
 
     user.findByIdAndRemove(id, (err, user) => {
         res.json({ success: true, message: "User deleted.", user })
-    })
+    });
 
 });
 // Remove -> Fin
