@@ -19,23 +19,16 @@ var userSchema = new Schema({
 app.use('/assets', express.static(__dirname + '/public')); //Aquí estarán nuestros contenidos estáticos.
 app.set('view engine', 'ejs');
 
-app.get('/insert', (req, res) => {
-    res.render('insert');
-});
-
-app.get('/search', (req, res) => {
-    res.render('personData');
-});
+app.get('/insert', (req, res) => res.render('insert'));
+app.get('/search', (req, res) => res.render('personData'));
 
 // UsersList -> Inicio
 app.get('/usersList', (req, res) => {
     let user = mongoose.model('User', userSchema);
 
     user.find({}, function(err, users) {
-        if (err) {
-            res.send("Oh, oh. Algo salió mal, crack.");
-        }
-        res.render('home', { users });
+        if (err) res.send("Oh, oh. Algo salió mal, crack.");
+        else res.render('home', { users });
     });
 });
 // UsersList -> Fin
@@ -107,6 +100,4 @@ app.post('/updateOne/:id', urlencodedParser, (req, res) => {
 });
 // Update -> Fin
 
-app.listen(port, () => {
-    console.log(`Escuchando en el puerto ${port}`)
-});
+app.listen(port, () => console.log(`Escuchando en el puerto ${port}`));
