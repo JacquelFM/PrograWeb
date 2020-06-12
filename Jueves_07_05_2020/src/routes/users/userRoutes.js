@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const express = require('express');
-const router = express.Router();
 
+const router = express.Router();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 mongoose.Promise = global.Promise;
@@ -44,10 +44,11 @@ router.post('/insertUser', urlencodedParser, (req, res) => {
         password: req.body.password
     });
 
-    myUser.save((err) => {
-        if (err) res.send("Oh, oh. Algo salió mal, crack.");
-        else res.redirect('/usersList');
-    });
+    myUser.save()
+        .then(res.redirect('/usersList'))
+        .catch((err) => {
+            res.send("Oh, oh. Algo salió mal, crack.");
+        });
 });
 // Insert -> Fin
 
@@ -55,13 +56,15 @@ router.post('/insertUser', urlencodedParser, (req, res) => {
 router.post('/person', urlencodedParser, (req, res) => {
     let user = mongoose.model('User', userSchema);
 
-    user.find({ userName: req.body.userName }, function(err, data) {
-        if (err) console.log('Hubo un error');
-        else {
+    user.find({ userName: req.body.userName })
+        .exec()
+        .then((data) => {
             if (data.length > 0) res.render('results', { data });
             else res.send('No hay coincidencias para el criterio de búsqueda');
-        }
-    });
+        })
+        .catch((err) => {
+            res.send("Oh, oh. Algo salió mal, crack.");
+        });
 });
 // Search -> Fin
 
@@ -69,10 +72,12 @@ router.post('/person', urlencodedParser, (req, res) => {
 router.post('/remove/:id', (req, res) => {
     let user = mongoose.model('User', userSchema);
 
-    user.findByIdAndRemove(req.params.id, (err) => {
-        if (err) res.send("Oh, oh. Algo salió mal, crack.");
-        else res.redirect('/usersList');
-    });
+    user.findByIdAndRemove(req.params.id)
+        .exec()
+        .then(res.redirect('/usersList'))
+        .catch((err) => {
+            res.send("Oh, oh. Algo salió mal, crack.");
+        });
 });
 // Remove -> Fin
 
@@ -80,25 +85,29 @@ router.post('/remove/:id', (req, res) => {
 router.post('/update/:id', (req, res) => {
     let user = mongoose.model('User', userSchema);
 
-    user.find({ _id: req.params.id }, function(err, data) {
-        if (err) console.log('Oh, oh. Hubo un error, crack.');
-        else {
+    user.find({ _id: req.params.id })
+        .exec()
+        .then((data) => {
             if (data.length > 0) res.render('update', { data });
             else res.send('No hay coincidencias para el criterio de búsqueda.');
-        }
-    });
+        })
+        .catch((err) => {
+            res.send("Oh, oh. Algo salió mal, crack.");
+        });
 });
 
 router.post('/updateOne/:id', urlencodedParser, (req, res) => {
     let user = mongoose.model('User', userSchema);
 
     user.findOneAndUpdate({ _id: req.params.id }, {
-        userName: req.body.userName,
-        password: req.body.password
-    }, (err) => {
-        if (err) res.send("Oh, oh. Algo salió mal, crack.");
-        else res.redirect('/usersList');
-    });
+            userName: req.body.userName,
+            password: req.body.password
+        })
+        .exec()
+        .then(res.redirect('/usersList'))
+        .catch((err) => {
+            res.send("Oh, oh. Algo salió mal, crack.");
+        });
 });
 // Update -> Fin
 
