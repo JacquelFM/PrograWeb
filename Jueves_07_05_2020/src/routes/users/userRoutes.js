@@ -26,12 +26,8 @@ router.get('/usersList', (req, res) => {
 
     user.find({})
         .exec()
-        .then((users) => {
-            res.render('home', { users });
-        })
-        .catch((err) => {
-            res.send("Oh, oh. Algo salió mal, crack.");
-        });
+        .then((users) => res.render('home', { users }))
+        .catch((err) => res.send("Oh, oh. Algo salió mal, crack."));
 });
 // UsersList -> Fin
 
@@ -46,9 +42,7 @@ router.post('/insertUser', urlencodedParser, (req, res) => {
 
     myUser.save()
         .then(res.redirect('/usersList'))
-        .catch((err) => {
-            res.send("Oh, oh. Algo salió mal, crack.");
-        });
+        .catch((err) => res.send("Oh, oh. Algo salió mal, crack."));
 });
 // Insert -> Fin
 
@@ -62,9 +56,7 @@ router.post('/person', urlencodedParser, (req, res) => {
             if (data.length > 0) res.render('results', { data });
             else res.send('No hay coincidencias para el criterio de búsqueda');
         })
-        .catch((err) => {
-            res.send("Oh, oh. Algo salió mal, crack.");
-        });
+        .catch((err) => res.send("Oh, oh. Algo salió mal, crack."));
 });
 // Search -> Fin
 
@@ -75,9 +67,7 @@ router.post('/remove/:id', (req, res) => {
     user.findByIdAndRemove(req.params.id)
         .exec()
         .then(res.redirect('/usersList'))
-        .catch((err) => {
-            res.send("Oh, oh. Algo salió mal, crack.");
-        });
+        .catch((err) => res.send("Oh, oh. Algo salió mal, crack."));
 });
 // Remove -> Fin
 
@@ -91,9 +81,7 @@ router.post('/update/:id', (req, res) => {
             if (data.length > 0) res.render('update', { data });
             else res.send('No hay coincidencias para el criterio de búsqueda.');
         })
-        .catch((err) => {
-            res.send("Oh, oh. Algo salió mal, crack.");
-        });
+        .catch((err) => res.send("Oh, oh. Algo salió mal, crack."));
 });
 
 router.post('/updateOne/:id', urlencodedParser, (req, res) => {
@@ -105,9 +93,7 @@ router.post('/updateOne/:id', urlencodedParser, (req, res) => {
         })
         .exec()
         .then(res.redirect('/usersList'))
-        .catch((err) => {
-            res.send("Oh, oh. Algo salió mal, crack.");
-        });
+        .catch((err) => res.send("Oh, oh. Algo salió mal, crack."));
 });
 // Update -> Fin
 
