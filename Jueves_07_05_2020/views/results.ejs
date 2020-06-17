@@ -3,21 +3,29 @@
 <head>
     <title>Results</title>
     <link href="/assets/style.css" type="text/css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
+    <h1 class="text-center">Resultados de búsqueda</h1><br>
 
-    <ul>
-        <% data.forEach(function(o) { %>
-            <li>
-                <%= o.userName %> -->
-                    <%= o.password %>
-            </li>
-            <% }); %>
-    </ul>
-
-    <a href="/usersList">Regresar</a>
-
+    <div class="container">
+        <ul class="list-group">
+            <% data.forEach(function(o) { %>
+                <li class="list-group-item list-group-item-info">
+                    <%= o.userName %> -->
+                        <%= o.password %>
+                </li>
+                <% }); %>
+        </ul>
+    </div>
+    <div class="container">
+        <a href="/usersList" class="badge">Regresar</a>
+    </div>
 </body>
 
 </html>
