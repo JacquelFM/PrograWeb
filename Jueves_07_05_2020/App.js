@@ -1,15 +1,13 @@
 //Inyección de dependencias.
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+require('./src/db/connection'); // Tráete este código.
 const routes = require('./src/routes');
 const app = express();
 const port = 3000;
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();
-
-mongoose.connect('mongodb+srv://admin:admin@beducluster-eiuzk.mongodb.net/test?retryWrites=true&w=majority');
 
 app.use('/', routes);
 app.use('/assets', express.static(__dirname + '/public')); //Aquí estarán nuestros contenidos estáticos.
